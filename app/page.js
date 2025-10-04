@@ -3,6 +3,7 @@ import Headers from "@/components/headers";
 import ServicesSection from "@/components/serviceSection";
 import Features from "@/components/features";
 import Footer from '@/components/footer';
+import Testimonals from '@/components/testimonials';
 function Home() {
   return (
   <div>
@@ -10,6 +11,7 @@ function Home() {
 
     <ServicesSection />
     <Features />
+    <Testimonals />
     <Footer />
   </div>
   );
