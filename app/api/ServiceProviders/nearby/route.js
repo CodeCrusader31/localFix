@@ -64,7 +64,7 @@ export async function GET(req) {
           spherical: true,
           query: {
             role: "serviceProvider",
-            ...(category ? { serviceCategory: category } : {})
+            ...(category ? { serviceCategory: category.toLowerCase() } : {})
           }
         }
       },

@@ -17,8 +17,6 @@
 //     </div>
 //   );
 // }
-
-
 "use client";
 import React from "react";
 import Link from "next/link";
@@ -49,7 +47,7 @@ export default function ServiceCard({ provider }) {
       )}
 
       <div className="relative z-10 bg-white p-6 h-full w-full rounded-[10px] flex flex-col items-center justify-center text-center">
-        {/* Avatar (you can replace with provider.image if you have it) */}
+        {/* Avatar (replace with provider.image if available) */}
         <img
           src={provider.image || "https://via.placeholder.com/150"}
           alt={provider.fullName}
@@ -80,8 +78,11 @@ export default function ServiceCard({ provider }) {
           {provider.availability ? "Available" : "Not Available"}
         </p>
 
-        {/* Button to details */}
-        <Link href={`/providers/${provider._id}`} className="w-full">
+        {/* Button → provider profile */}
+        <Link
+          href={`/services/${provider.serviceCategory}/${provider._id}`}
+          className="w-full"
+        >
           <button className="mt-3 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
             View Details
           </button>

@@ -61,7 +61,7 @@ export default function ProvidersPage() {
     if (!user?.id) return;
     setLoading(true);
 
-    let url = `/api/ServiceProviders?category=${category}&radius=5000&userId=${user.id}`;
+    let url = `/api/ServiceProviders/nearby?category=${category}&radius=5000&userId=${user.id}`;
 
     fetch(url)
       .then(res => {

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const page = () => {
+function page() {
   return (
-    <div>Providers</div>
+    <div>Request page</div>
   )
 }
 

@@ -116,7 +116,7 @@ export default function Register() {
       
       if (response.ok) {
         toast.success('Registration successful! Please log in.');
-        router.push('/login');
+        router.push('/api/auth/login');
       } else {
         setErrors({ submit: data.message || 'Registration failed' });
       }
