@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { AppContextProvider } from "@/context/AppContext";
-
+import ChatBot from "@/components/ChatBot";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -41,7 +41,9 @@ export default function RootLayout({ children }) {
 
           {/* ✅ Push page content below navbar */}
           <main id="main-content" className="pt-16 min-h-screen">
+
             {children}
+            <ChatBot />
           </main>
         </AppContextProvider>
       </body>

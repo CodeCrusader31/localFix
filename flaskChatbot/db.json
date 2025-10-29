@@ -1,0 +1,9 @@
+{
+  "plumbers": [
+    { "name": "Ramesh", "city": "Imphal", "contact": "9876543210" },
+    { "name": "Suresh", "city": "Imphal", "contact": "9123456780" }
+  ],
+  "electricians": [
+    { "name": "Anil", "city": "Imphal", "contact": "9999999999" }
+  ]
+}
