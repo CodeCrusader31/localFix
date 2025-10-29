@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # MongoDB Connection
-client = MongoClient("mongodb+srv://niteshwarkr2056:Nikku1414@cluster0.fv4q5yd.mongodb.net/localFix?retryWrites=true&w=majority")
+client = MongoClient("mongouri")
 db = client["localFix"]
 users_collection = db["users"]
 
