@@ -28,3 +28,26 @@ export async function GET(req, context) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
+
+
+// export async function GET(req, context) {
+//   const { params } = await context;
+//   const { id } = params;
+  
+//   console.log("🟢 Public profile API called for ID:", id);
+
+//   await connectDB();
+
+//   const provider = await ServiceProvider.findById(id).select(
+//     "fullName serviceCategory city state email phone profilePic"
+//   );
+
+//   if (!provider) {
+//     return new Response(
+//       JSON.stringify({ error: "Service provider not found" }),
+//       { status: 404 }
+//     );
+//   }
+
+//   return new Response(JSON.stringify(provider), { status: 200 });
+// }

@@ -7,6 +7,7 @@ from flask_cors import CORS
 import requests
 import re
 import json
+import random
 
 app = Flask(__name__)
 CORS(app)
@@ -18,8 +19,10 @@ users_collection = db["users"]
 
 # Ollama Configuration
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "gemma3:1b"
-OLLAMA_TIMEOUT = 15 
+# OLLAMA_MODEL =  "llama3.2:3b"
+OLLAMA_MODEL = "gemma3:1b"     # Changed to the new model you pulled
+OLLAMA_TIMEOUT = 30 
+
 
 class LocalFixChatbot:
     def __init__(self):
@@ -82,18 +85,49 @@ class LocalFixChatbot:
     #         print("❌ Ollama query error:", e)
     #         return "I'm currently unable to process your request. Please try again later."
 
+    # def query_ollama(self, prompt, context=""):
+    #     """Enhanced Ollama query with timeout handling"""
+    #     try:
+    #         full_prompt = f"""
+    #         {context}
+        
+    #         User Question: {prompt}
+        
+    #         Important: Keep responses concise and under 150 words. 
+    #         If this is NOT about home services, respond with exactly: 
+    #         "I don't have information regarding this, but if you need help with local services I am here to help you."
+    #         """
+        
+    #         response = requests.post(
+    #             OLLAMA_URL,
+    #             json={
+    #                 "model": OLLAMA_MODEL, 
+    #                 "prompt": full_prompt, 
+    #                 "stream": False,
+    #                 "options": {
+    #                     "temperature": 0.3,
+    #                     "num_predict": 200,  # Limit response length
+    #                     "top_k": 40
+    #                 }
+    #             },
+    #             timeout=OLLAMA_TIMEOUT  # Use reduced timeout
+    #         )
+    #         data = response.json()
+    #         return self._filter_response(data.get("response", ""))
+    #     except requests.exceptions.Timeout:
+    #         print("⏰ Ollama timeout - using fallback response")
+    #         return self._get_fallback_response(prompt)
+    #     except Exception as e:
+    #         print("❌ Ollama query error:", e)
+    #         return self._get_fallback_response(prompt)
+
     def query_ollama(self, prompt, context=""):
-        """Enhanced Ollama query with timeout handling"""
+        """Enhanced Ollama query with better error handling"""
         try:
-            full_prompt = f"""
-            {context}
+        # Simple prompt for faster response
+            full_prompt = f"Answer briefly about home services: {prompt}"
         
-            User Question: {prompt}
-        
-            Important: Keep responses concise and under 150 words. 
-            If this is NOT about home services, respond with exactly: 
-            "I don't have information regarding this, but if you need help with local services I am here to help you."
-            """
+            print(f"🤖 Sending to Ollama: {prompt}")
         
             response = requests.post(
                 OLLAMA_URL,
@@ -103,19 +137,26 @@ class LocalFixChatbot:
                     "stream": False,
                     "options": {
                         "temperature": 0.3,
-                        "num_predict": 200,  # Limit response length
-                        "top_k": 40
+                        "num_predict": 100  # Shorter responses
                     }
                 },
-                timeout=OLLAMA_TIMEOUT  # Use reduced timeout
+                timeout=10  # 10 second timeout
             )
-            data = response.json()
-            return self._filter_response(data.get("response", ""))
+        
+            if response.status_code == 200:
+                data = response.json()
+                response_text = data.get("response", "").strip()
+                print(f"✅ Ollama response received")
+                return response_text if response_text else self._get_fallback_response(prompt)
+            else:
+                print(f"❌ Ollama API error: {response.status_code}")
+                return self._get_fallback_response(prompt)
+            
         except requests.exceptions.Timeout:
-            print("⏰ Ollama timeout - using fallback response")
+            print("⏰ Ollama timeout after 10 seconds")
             return self._get_fallback_response(prompt)
         except Exception as e:
-            print("❌ Ollama query error:", e)
+            print(f"❌ Ollama connection error: {e}")
             return self._get_fallback_response(prompt)
 
     def _filter_response(self, response):
@@ -134,6 +175,36 @@ class LocalFixChatbot:
             return "I don't have information regarding this, but if you need help with local services I am here to help you."
         
         return response
+    
+
+    def _get_fallback_response(self, prompt):
+        """Fallback response if AI or DB fails"""
+        query_lower = prompt.lower()
+    
+    # Service-related fallbacks
+        if any(service in query_lower for service in ['plumb', 'electric', 'carpent', 'paint', 'clean']):
+            return "I can help you find local service providers! Please specify:\n• What service you need (plumbing, electrical, etc.)\n• Your location/city\n\nFor example: 'I need a plumber in Delhi'"
+    
+    # AC repair specific
+        if 'ac' in query_lower or 'air conditioner' in query_lower:
+            return "🔧 **AC Repair Services Available!**\n\nI can help you find qualified AC repair technicians in your area. Please tell me your location/city so I can find the best providers near you."
+    
+    # General service search
+        if any(word in query_lower for word in ['find', 'search', 'need', 'want', 'looking for']):
+            return "I'd be happy to help you find service providers! Please let me know:\n• What service you're looking for\n• Your city/location\n\nFor example: 'Find electricians in Mumbai'"
+    
+    # Website info fallbacks
+        website_response = self._handle_website_queries(prompt)
+        if website_response:
+            return website_response
+    
+    # Default fallback
+        fallback_messages = [
+            "I'm currently experiencing high demand. I specialize in helping you find local service providers for home services!",
+            "Our AI assistant is busy. I can help you find plumbers, electricians, carpenters and other service providers.",
+            "System timeout. I'm here to help you find local service providers - just tell me what service you need and your location!"
+        ]
+        return random.choice(fallback_messages)
 
     def extract_service_info(self, query):
         """Improved: Extract service type and location with more accuracy"""
