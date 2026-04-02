@@ -504,6 +504,13 @@ export const AppContextProvider = ({ children }) => {
 
   useEffect(() => { fetchMe(); }, []);
 
+  const login = (userData, token) => {
+    setUser(userData);
+    setRole(userData.role || "guest");
+    // Session cookie is set by `POST /api/auth/login` (HttpOnly),
+    // so we don't need to mirror it here.
+  };
+
   // WebSocket
   useEffect(() => {
     if (user) {
@@ -512,6 +519,9 @@ export const AppContextProvider = ({ children }) => {
       });
 
       setSocket(socketInstance);
+
+      // Join a personal room for user-specific notifications (like bookings)
+      socketInstance.emit("joinRoom", user.id);
 
       socketInstance.on("receiveMessage", (msg) => {
         setMessages((prev) => [...prev, msg]);
@@ -584,7 +594,7 @@ export const AppContextProvider = ({ children }) => {
   return (
     <AppContext.Provider value={{
       user, role, loading, socket, messages,
-      joinRoom, sendMessage, logout, setMessages, currentRoom
+      joinRoom, sendMessage, login, logout, setMessages, currentRoom
     }}>
       {children}
     </AppContext.Provider>

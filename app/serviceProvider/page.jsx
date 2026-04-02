@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Star, MapPin, Calendar, CheckCircle, MessageCircle, Settings, DollarSign, Users, Clock } from "lucide-react";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
+import { useAppContext } from "@/context/AppContext";
 
 export default function ServiceProviderDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -27,6 +29,54 @@ export default function ServiceProviderDashboard() {
     { id: 102, service: "Painting Service", client: "Lisa Wilson", date: "2023-10-24", budget: 300 },
     { id: 103, service: "Furniture Assembly", client: "David Miller", date: "2023-10-25", budget: 80 },
   ]);
+
+  const { socket } = useAppContext();
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("newBooking", (data) => {
+      console.log("New booking received via socket:", data);
+      toast.success(`New request for ${data.booking.ServiceType || data.booking.serviceType}!`);
+      
+      // Update the local state
+      setServiceRequests((prev) => [
+        {
+          id: data.booking._id || Math.random(),
+          seekerId: data.booking.seekerId,
+          service: data.booking.ServiceType || data.booking.serviceType || "Service Request",
+          client: "New Client", // Real name would need a user populated field
+          date: new Date().toISOString().split("T")[0],
+          budget: "N/A", 
+        },
+        ...prev,
+      ]);
+    });
+
+    return () => {
+        // cleanup listener to avoid duplicates
+        socket.off("newBooking");
+    };
+  }, [socket]);
+
+  const handleStatusUpdate = (requestId, seekerId, status) => {
+    // 1. You would normally do a PUT request to update DB here.
+    
+    // 2. Emit real-time status update to the seeker!
+    if (socket && seekerId) {
+      socket.emit("bookingStatusUpdate", {
+        receiverId: seekerId,
+        bookingId: requestId,
+        status: status,
+      });
+      toast.success(`Booking ${status.toLowerCase()}!`);
+    } else {
+      toast.success(`Dummy booking ${status.toLowerCase()}!`);
+    }
+
+    // 3. Remove/update locally
+    setServiceRequests((prev) => prev.filter((req) => req.id !== requestId));
+  };
 
   const quickActions = [
     { icon: Users, label: "View Requests", href: "/serviceProvider/request", color: "blue" },
@@ -250,10 +300,16 @@ export default function ServiceProviderDashboard() {
                     <div className="mt-2 flex justify-between items-center">
                       <span className="text-sm text-gray-500">{request.date}</span>
                       <div className="flex space-x-2">
-                        <button className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors">
+                        <button 
+                          onClick={() => handleStatusUpdate(request.id, request.seekerId, 'ACCEPTED')}
+                          className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors"
+                        >
                           Accept
                         </button>
-                        <button className="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition-colors">
+                        <button 
+                          onClick={() => handleStatusUpdate(request.id, request.seekerId, 'REJECTED')}
+                          className="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition-colors"
+                        >
                           Decline
                         </button>
                       </div>

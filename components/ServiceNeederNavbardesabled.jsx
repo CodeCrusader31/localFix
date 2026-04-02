@@ -54,9 +54,6 @@ export default function ServiceNeederNavbar() {
             <Link href="/about" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-md font-medium transition-colors duration-200">
               About
             </Link>
-            <Link href="/contact" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-md font-medium transition-colors duration-200">
-              Contact
-            </Link>
             
             <button
               onClick={handleLogout}
@@ -117,13 +114,6 @@ export default function ServiceNeederNavbar() {
             className="text-gray-600 hover:text-blue-500 block px-3 py-2 rounded-md text-base font-medium"
           >
             About
-          </Link>
-          <Link 
-            href="/contact" 
-            onClick={toggleMobile}
-            className="text-gray-600 hover:text-blue-500 block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Contact
           </Link>
           <div className="pt-4 pb-3 border-t border-gray-200">
             <button

@@ -6,11 +6,27 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
+import { toast } from "react-hot-toast";
 
 export default function Navbar() {
-  const { role, logout, user } = useAppContext(); // role: "guest" | "serviceNeeder" | "serviceProvider"
+  const { role, logout, user, socket } = useAppContext(); // role: "guest" | "serviceNeeder" | "serviceProvider"
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!socket || role !== "serviceNeeder") return;
+
+    const handleStatusUpdate = (data) => {
+      console.log("Booking status update received:", data);
+      toast.success(`Your booking status was updated to: ${data.status}`);
+    };
+
+    socket.on("bookingStatusUpdate", handleStatusUpdate);
+
+    return () => {
+      socket.off("bookingStatusUpdate", handleStatusUpdate);
+    };
+  }, [socket, role]);
 
   const toggleMobile = () => setMobileOpen(!mobileOpen);
 
@@ -33,7 +49,6 @@ export default function Navbar() {
     { href: "/services", label: "Services" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
   ];
 
   // ✅ Role-specific links (with dynamic user?.id)

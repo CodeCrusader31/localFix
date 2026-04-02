@@ -1,11 +1,9 @@
-
-
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useAppContext } from "@/context/AppContext";
 import ChatBox from "@/components/ChatBox";
-
+import { useRouter } from "next/navigation";
 export default function ProviderProfilePage() {
   const { category, id } = useParams();
   const { user } = useAppContext();
@@ -13,8 +11,9 @@ export default function ProviderProfilePage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("profile");
   const [showChat, setShowChat] = useState(false); // ✅ toggle chat
+  const router = useRouter();
 
-  // Mock feedback data - replace with actual API call
+  // // Mock feedback data - replace with actual API call
   const [feedbacks, setFeedbacks] = useState([
     {
       id: 1,
@@ -60,10 +59,8 @@ export default function ProviderProfilePage() {
     }
   }, [id]);
 
-  const roomId = user?.id && provider?._id 
-  ? `${user.id}-${provider._id}` 
-  : null;
-
+  const roomId =
+    user?.id && provider?._id ? `${user.id}-${provider._id}` : null;
 
   if (loading) return <div>Loading...</div>;
   if (!provider) return <div>Provider Not Found</div>;
@@ -322,33 +319,41 @@ export default function ProviderProfilePage() {
                 Contact Now
               </button>
               <button
-               onClick={() => {
-  console.log("Logged-in user:", user?.id);
-  console.log("Provider:", provider?.id);
-  console.log("Room ID:", roomId);
-  setShowChat(!showChat);
-}}
-
+                onClick={() => {
+                  console.log("Logged-in user:", user?.id);
+                  console.log("Provider:", provider?.id);
+                  console.log("Room ID:", roomId);
+                  setShowChat(!showChat);
+                }}
                 className="border border-blue-500 text-blue-500 hover:bg-blue-50 px-8 py-3 rounded-xl"
               >
                 💬 {showChat ? "Close Chat" : "Send Message"}
               </button>
+              <button
+                onClick={() =>
+                  router.push(`/serviceNeeder/${provider._id}/booking`)
+                }
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-3 shadow-lg hover:shadow-xl"
+              >
+                <span className="text-lg">🛠️</span>
+                Book Service
+              </button>
+
               <button className="border border-green-500 text-green-500 hover:bg-green-50 px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-3">
                 <span className="text-lg">⭐</span>
                 Leave Feedback
               </button>
             </div>
-            
-            {showChat && user && provider?._id && roomId && (
-  <div className="mt-8">
-    <ChatBox 
-      roomId={roomId} 
-      receiverId={provider._id} 
-      senderId={user.id} 
-    />
-  </div>
-)}
 
+            {showChat && user && provider?._id && roomId && (
+              <div className="mt-8">
+                <ChatBox
+                  roomId={roomId}
+                  receiverId={provider._id}
+                  senderId={user.id}
+                />
+              </div>
+            )}
           </div>
         </div>
 

@@ -115,17 +115,15 @@ export async function POST(req) {
     // Generate JWT
     const token = generateToken(user);
 
-    // Set HttpOnly cookie
+    // Set HttpOnly cookie (must match what /api/me + middleware expect)
     const cookieStore = await cookies();
-cookieStore.set("auth-token", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
-  maxAge: 60 * 60 * 24 * 7,
-  path: "/",
-});
-
-
+    cookieStore.set("auth-token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
 
     // Safe User Data
     const userData = {
@@ -141,6 +139,7 @@ cookieStore.set("auth-token", token, {
       {
         message: "Login successful",
         user: userData,
+        token: token,
       },
       { status: 200 }
     );

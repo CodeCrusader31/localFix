@@ -20,6 +20,18 @@ io.on("connection", (socket) => {
     console.log(`👤 ${socket.id} joined room: ${roomId}`);
   });
 
+  // Handle new booking notifications
+  socket.on("sendBookingNotification", ({ receiverId, booking }) => {
+    console.log("📅 New Booking Notification to:", receiverId, "Booking:", booking);
+    io.to(receiverId).emit("newBooking", { booking });
+  });
+
+  // Handle booking status updates
+  socket.on("bookingStatusUpdate", ({ receiverId, bookingId, status }) => {
+    console.log("🔄 Booking Status Update to:", receiverId, "BookingID:", bookingId, "Status:", status);
+    io.to(receiverId).emit("bookingStatusUpdate", { bookingId, status });
+  });
+
   // Receive message from client and broadcast to room
   socket.on("sendMessage", ({ roomId, senderId, receiverId, message }) => {
     console.log("📩 Message:", { roomId, senderId, receiverId, message });
