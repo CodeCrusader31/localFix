@@ -64,12 +64,28 @@ export async function GET(req, { params }) {
   }
 
   try {
-    const messages = await Message.find({ roomId }).sort({ createdAt: 1 });
+    //const messages = await Message.find({ roomId }).sort({ createdAt: 1 });
 
+    const messages = await Message.find({ roomId })
+  .sort({ createdAt: 1 })
+  .lean();
+
+const normalizedMessages = messages.map((msg) => ({
+  ...msg,
+  message:
+    typeof msg.message === "string"
+      ? msg.message
+      : msg.message?.text || "",
+}));
+
+    // return new Response(
+    //   JSON.stringify({ success: true, messages }),
+    //   { status: 200 }
+    // );
     return new Response(
-      JSON.stringify({ success: true, messages }),
-      { status: 200 }
-    );
+  JSON.stringify({ success: true, messages: normalizedMessages }),
+  { status: 200 }
+);
   } catch (err) {
     return new Response(
       JSON.stringify({ success: false, error: "Error fetching messages" }),

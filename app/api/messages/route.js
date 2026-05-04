@@ -40,7 +40,19 @@ export async function POST(req) {
       return new Response(JSON.stringify({ success: false, error: "Missing fields" }), { status: 400 });
     }
 
-    const newMsg = await Message.create({ roomId, senderId, receiverId, message });
+    // const newMsg = await Message.create({ roomId, senderId, receiverId, message });
+
+    const normalizedMessage =
+  typeof message === "string"
+    ? message
+    : message?.text || JSON.stringify(message);
+
+const newMsg = await Message.create({
+  roomId,
+  senderId,
+  receiverId,
+  message: normalizedMessage, // ✅ ALWAYS STRING
+});
 
     return new Response(JSON.stringify({ success: true, message: newMsg }), { status: 201 });
   } catch {

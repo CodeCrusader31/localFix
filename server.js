@@ -33,24 +33,36 @@ io.on("connection", (socket) => {
   });
 
   // Receive message from client and broadcast to room
-  socket.on("sendMessage", ({ roomId, senderId, receiverId, message }) => {
-    console.log("📩 Message:", { roomId, senderId, receiverId, message });
+  // socket.on("sendMessage", ({ roomId, senderId, receiverId, message }) => {
+  //   console.log("📩 Message:", { roomId, senderId, receiverId, message });
 
-    // Broadcast full message object to room
-    io.to(roomId).emit("receiveMessage", {
-      roomId,
-      senderId,
-      receiverId,
-      message,
-      createdAt: new Date(), // optional timestamp
-    });
+  //   // Broadcast full message object to room
+  //   io.to(roomId).emit("receiveMessage", {
+  //     roomId,
+  //     senderId,
+  //     receiverId,
+  //     message,
+  //     createdAt: new Date(), // optional timestamp
+  //   });
+  // });
+
+  socket.on("sendMessage", ({ roomId, senderId, receiverId, message }) => {
+  io.to(roomId).emit("receiveMessage", {
+    roomId,
+    senderId,
+    receiverId,
+    message: String(message), // ✅ FORCE STRING
+    createdAt: new Date(),
   });
+});
 
   socket.on("disconnect", () => {
     console.log("❌ User disconnected:", socket.id);
   });
 });
 
-server.listen(4000, () => {
-  console.log("🚀 Socket server running on port 4000");
+const PORT = process.env.PORT || 4000;
+
+server.listen(PORT, () => {
+  console.log(`🚀 Socket server running on port ${PORT}`);
 });

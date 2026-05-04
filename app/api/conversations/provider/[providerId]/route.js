@@ -64,7 +64,10 @@ export async function GET(req, context) {
           customerId: otherUserId,
           customerName: otherUser?.name || 'Customer',
           customerEmail: otherUser?.email,
-          lastMessage: message.message,
+          lastMessage:
+  typeof message.message === "string"
+    ? message.message
+    : message.message?.text || "",
           lastMessageTime: message.createdAt,
           unreadCount: 0,
           lastMessageSender: isProviderSender ? 'provider' : 'customer'
