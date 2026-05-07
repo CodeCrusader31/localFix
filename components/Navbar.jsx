@@ -61,7 +61,7 @@ export default function Navbar() {
   } else if (role === "serviceProvider" && user) {
     roleLinks.push(
       { href: `/serviceProvider/${user.id}/request`, label: "Service Requests" },
-      { href: `/serviceProvider/${user.id}/dashboard`, label: "Dashboard" },
+      { href: `/serviceProvider/${user.id}`, label: "Dashboard" },
       { href: `/serviceProvider/${user.id}/profile`, label: "Profile" }
     );
   } else if (role === "admin" && user) {

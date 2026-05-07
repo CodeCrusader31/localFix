@@ -2,6 +2,16 @@ import dbConnect from "@/lib/config/db";
 import Message from "@/lib/models/Message";
 import User from "@/lib/models/User";
 
+function getOtherUserIdFromRoom(roomId, providerId) {
+  if (!roomId) return "";
+  const ids = roomId.includes("_") ? roomId.split("_") : roomId.split("-");
+  return ids.find((id) => id && id !== providerId) || "";
+}
+
+function normalizeMessageText(message) {
+  return typeof message === "string" ? message : message?.text || "";
+}
+
 export async function GET(req, context) {
   await dbConnect();
 
@@ -45,29 +55,37 @@ export async function GET(req, context) {
           senderIdString: message.senderId?.toString()
         });
 
-        // Fix: Properly handle ObjectId comparison
         const isProviderSender = message.senderId?.toString() === providerId;
-        const otherUserId = isProviderSender ? message.receiverId : message.senderId;
+        let otherUserId = isProviderSender ? message.receiverId : message.senderId;
+
+        if (
+          !otherUserId ||
+          String(otherUserId) === providerId ||
+          String(otherUserId).includes("-") ||
+          String(otherUserId).includes("_")
+        ) {
+          otherUserId = getOtherUserIdFromRoom(roomId, providerId);
+        }
 
         // Fetch the other user's details
         let otherUser = null;
         if (otherUserId) {
           try {
-            otherUser = await User.findById(otherUserId).select('name email').lean();
+            otherUser = await User.findById(otherUserId).select('fullName username email').lean();
           } catch (err) {
             console.error("Error fetching user:", err);
           }
         }
 
+        const customerName = otherUser?.fullName || otherUser?.username || "Customer";
+
         roomMap.set(roomId, {
           roomId: roomId,
+          roomName: `Chat with ${customerName}`,
           customerId: otherUserId,
-          customerName: otherUser?.name || 'Customer',
+          customerName,
           customerEmail: otherUser?.email,
-          lastMessage:
-  typeof message.message === "string"
-    ? message.message
-    : message.message?.text || "",
+          lastMessage: normalizeMessageText(message.message),
           lastMessageTime: message.createdAt,
           unreadCount: 0,
           lastMessageSender: isProviderSender ? 'provider' : 'customer'

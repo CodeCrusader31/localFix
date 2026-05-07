@@ -42,11 +42,12 @@ function statusClasses(status) {
 
 export default function MyBookingsPage() {
   const { id } = useParams(); // seekerId
-  const { user, loading: ctxLoading } = useAppContext();
+  const { user, loading: ctxLoading, socket } = useAppContext();
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [updatingId, setUpdatingId] = useState("");
 
   const seekerId = useMemo(() => id, [id]);
 
@@ -84,6 +85,58 @@ export default function MyBookingsPage() {
   }, [ctxLoading, seekerId, user]);
 
   const isAuthed = !!user && user.role === "serviceNeeder";
+
+  useEffect(() => {
+    if (!socket || !isAuthed) return;
+
+    const handleStatusUpdate = ({ bookingId, status, booking }) => {
+      setBookings((current) =>
+        current.map((item) =>
+          item._id === bookingId ? { ...item, ...(booking || {}), status } : item
+        )
+      );
+    };
+
+    socket.on("bookingStatusUpdate", handleStatusUpdate);
+
+    return () => {
+      socket.off("bookingStatusUpdate", handleStatusUpdate);
+    };
+  }, [socket, isAuthed]);
+
+  const cancelBooking = async (booking) => {
+    setUpdatingId(booking._id);
+
+    try {
+      const res = await fetch(`/api/bookings/${booking._id}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ status: "CANCELLED" }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to cancel booking");
+      }
+
+      const updatedBooking = data.booking;
+      setBookings((current) =>
+        current.map((item) => (item._id === updatedBooking._id ? updatedBooking : item))
+      );
+
+      socket?.emit("bookingStatusUpdate", {
+        receiverId: updatedBooking.providerId?._id || booking.providerId?._id || booking.providerId,
+        bookingId: updatedBooking._id,
+        status: updatedBooking.status,
+        booking: updatedBooking,
+      });
+    } catch (err) {
+      setError(err.message || "Failed to cancel booking");
+    } finally {
+      setUpdatingId("");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -180,9 +233,19 @@ export default function MyBookingsPage() {
                       </div>
                     </div>
                     <div className="flex gap-3">
+                      {["PENDING", "ACCEPTED"].includes(booking.status) && (
+                        <button
+                          type="button"
+                          onClick={() => cancelBooking(booking)}
+                          disabled={updatingId === booking._id}
+                          className="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-red-200 text-red-700 font-medium hover:bg-red-50 transition-colors text-sm disabled:opacity-60"
+                        >
+                          Cancel
+                        </button>
+                      )}
                       {booking.providerId?._id && (
                         <Link
-                          href={`/serviceProvider/${booking.providerId._id}/profile`}
+                          href={`/services/${booking.providerId.serviceCategory || "provider"}/${booking.providerId._id}`}
                           className="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-indigo-200 text-indigo-700 font-medium hover:bg-indigo-50 transition-colors text-sm"
                         >
                           View Provider

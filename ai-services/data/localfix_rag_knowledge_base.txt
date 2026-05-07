@@ -1,0 +1,395 @@
+================================================================
+LOCALFIX RAG KNOWLEDGE BASE
+Combined from: General Home Services Knowledge + LocalFix Website Data
+================================================================
+
+================================================================
+SECTION 1 — PLATFORM OVERVIEW (LocalFix-Specific)
+================================================================
+
+LocalFix is a trusted digital platform that connects customers with verified local service professionals across India. The platform operates with the tagline "Apne sheher ke experts, ab ek click ki doori par" — meaning "Experts from your city, just a click away." It is designed to make local home services simpler, faster, and more trustworthy for everyday users.
+
+---
+
+LocalFix currently serves customers across major Indian cities including Delhi, Mumbai, Bangalore, Chennai, Hyderabad, Kolkata, Pune, and Ahmedabad. The platform continues to expand its city coverage regularly. Users in cities not yet listed are encouraged to check back as new areas are onboarded frequently.
+
+---
+
+LocalFix has served over 50,000 happy customers with a network of more than 5,000 verified service experts across 200+ cities. The platform maintains a 98% customer satisfaction rate, reflecting the high quality of professionals and the reliability of its booking system.
+
+---
+
+LocalFix offers services across three core categories: Home Services (cleaning-related tasks), Repair and Maintenance (technical fixes and installations), and Outdoor Services (garden, lawn, and exterior maintenance). Each category contains multiple specialized sub-services that customers can browse and book directly through the platform.
+
+---
+
+In addition to its primary service categories, LocalFix supports a wide range of on-demand services including AC Repair, Car Mechanic, Home Renovation, Pest Control, Moving Services, Gardening, Computer Repair, Painting, and Carpentry. This wide coverage makes it a one-stop platform for most residential and light commercial service needs.
+
+---
+
+Home Services (cleaning) is one of the most requested categories on LocalFix, and includes Deep Cleaning, Move-In/Move-Out Cleaning, Carpet Cleaning, Office Cleaning, and Post-Construction Cleaning. All cleaning services are performed by trained and vetted professionals using professional-grade equipment and supplies. Every cleaning service comes with a satisfaction guarantee.
+
+---
+
+Repair and Maintenance services on LocalFix cover Plumbing Repairs, Electrical Fixes, Appliance Repair, Furniture Assembly, and Door and Lock Repair. All professionals in this category are licensed and insured, use quality parts and materials, and provide a warranty on all completed repairs. These services start at competitive prices with transparent upfront estimates.
+
+---
+
+Outdoor Services on LocalFix include Lawn Care, Gardening, Fence Repair, Deck Staining, and Pressure Washing. These services are carried out by experienced landscaping and exterior maintenance professionals using eco-friendly products and practices. All outdoor services come with a quality guarantee.
+
+---
+
+================================================================
+SECTION 2 — SERVICE PRICING (LocalFix-Specific)
+================================================================
+
+Deep Cleaning on LocalFix starts from $120 to $200 depending on the size of the space, the number of rooms, and the level of soiling. The service includes professional equipment, trained professionals, and a satisfaction guarantee. It is one of the most comprehensive cleaning services available on the platform.
+
+---
+
+Move-In/Move-Out Cleaning is priced starting from $150 to $250 and is designed for properties that need a complete reset before or after occupancy. The service is ideal for tenants vacating a rental, new homeowners moving in, or landlords preparing a property for new residents. It covers all rooms, fixtures, and surfaces thoroughly.
+
+---
+
+Carpet Cleaning on LocalFix starts at $80 to $150 and covers professional deep cleaning and stain removal for residential carpets, rugs, and fabric floor coverings. Office Cleaning starts from $100 to $300 and is designed for commercial spaces requiring regular or one-time professional cleaning. Post-Construction Cleaning, which addresses dust, debris, and residue after renovations, starts from $200 to $400.
+
+---
+
+Plumbing Repairs on LocalFix are priced starting from $80 to $200, while Electrical Fixes start from $100 to $250. Appliance Repair services begin at $90 to $180, Furniture Assembly starts from $60 to $150, and Door and Lock Repair starts from $70 to $160. All these prices are starting estimates and final costs depend on the scope and complexity of the job.
+
+---
+
+Outdoor services pricing on LocalFix: Lawn Care starts from $50 to $120, Gardening from $70 to $150, Fence Repair from $100 to $300, Deck Staining from $200 to $500, and Pressure Washing from $80 to $250. Prices vary based on the size of the outdoor area, materials required, and condition of the surface or garden being serviced.
+
+---
+
+================================================================
+SECTION 3 — HOW BOOKING WORKS ON LOCALFIX
+================================================================
+
+The LocalFix booking process is a six-step flow designed for simplicity and reliability. Customers begin by selecting the service they need, after which the platform surfaces verified providers that match the request. The customer then confirms a time and place for a hassle-free appointment.
+
+---
+
+Once the appointment is confirmed on LocalFix, a professional is dispatched and the customer can track progress through the app. After the service is completed, payment is made securely. Finally, the customer is asked to provide feedback, which helps maintain quality standards across the entire platform.
+
+---
+
+LocalFix matches customers with professionals based on location, availability, and specialization. The platform shows verified provider profiles with ratings, reviews, and experience so customers can choose with confidence. Booking can be completed in minutes directly through the website at local-fix-self.vercel.app or via the app.
+
+---
+
+LocalFix provides 24/7 customer support to assist with bookings, rescheduling, cancellations, or service-related issues. Customers can reach the support team at any time, making the platform suitable for both planned appointments and urgent service needs. The support team also handles disputes and escalations related to service quality.
+
+---
+
+================================================================
+SECTION 4 — PLATFORM TRUST & VERIFICATION
+================================================================
+
+All service providers on LocalFix are background-checked and verified before they are listed on the platform. Verification includes identity checks, professional certification validation, and skill assessments relevant to their service category. Only professionals who pass all verification steps are given access to customer bookings.
+
+---
+
+LocalFix maintains a continuous rating and review system where customers rate service providers after every completed job. Professionals with consistently low ratings are reviewed and may be removed from the platform. This accountability mechanism ensures that quality standards are upheld over time.
+
+---
+
+LocalFix offers a service guarantee on all bookings made through the platform. This means that if a customer is not satisfied with the quality of the service delivered, they can raise a complaint through the platform for resolution. The guarantee applies across all service categories and protects customers from substandard work.
+
+---
+
+Repair and Maintenance professionals on LocalFix carry a warranty on all repair work. This warranty means that if the same issue recurs within the warranty period, the professional is required to revisit and resolve it at no additional charge. The warranty period varies by service type and is communicated at the time of booking.
+
+---
+
+================================================================
+SECTION 5 — GENERAL HOME SERVICES PLATFORM KNOWLEDGE
+================================================================
+
+Home services platforms are digital marketplaces that connect customers with trained local professionals for household tasks. These platforms operate similarly to Urban Company, Handy, or TaskRabbit, allowing users to book services through a mobile app or website. They cover a wide range of needs including plumbing, electrical work, cleaning, carpentry, and appliance repair.
+
+---
+
+Local service platforms verify and onboard professionals through background checks, skill assessments, and identity verification. Service providers are rated by customers after every job, creating a quality assurance system. This model ensures that only qualified professionals appear on the platform and customers can make informed decisions.
+
+---
+
+These platforms typically operate in multiple cities and regions, with localized professional networks in each area. Customers can choose between scheduled appointments and on-demand bookings depending on urgency. The platform acts as an intermediary, handling payments, disputes, and communications between customers and professionals.
+
+---
+
+Payment on local service platforms can be made through multiple methods including credit or debit cards, digital wallets, UPI, net banking, and sometimes cash. Many platforms hold payment in escrow until the job is marked complete by the customer. Disputes regarding work quality can be raised through the platform's support system for resolution.
+
+---
+
+Peak-hour pricing or surge pricing may apply during high-demand periods such as festivals, extreme weather, or weekends. Some platforms offer subscription plans that give members priority access, discounted rates, or a fixed number of free services per year. Price transparency before booking helps customers make informed decisions.
+
+---
+
+================================================================
+SECTION 6 — PLUMBING (General Knowledge)
+================================================================
+
+Plumbing services cover the installation, repair, and maintenance of water supply lines, drainage systems, and sanitation networks. Certified plumbers handle tasks such as pipe fitting, faucet installation, water heater repair, and sewer line inspection. Proper plumbing ensures clean water access and efficient waste removal in residential and commercial spaces.
+
+---
+
+Common plumbing problems include leaking faucets, burst pipes, clogged drains, low water pressure, and running toilets. A leaking faucet can waste thousands of liters of water annually and is often caused by a worn washer or O-ring. Burst pipes are typically caused by freezing temperatures, corrosion, or excessive pressure and require immediate professional attention.
+
+---
+
+Clogged drains are among the most frequent plumbing issues and are usually caused by the buildup of hair, grease, soap scum, or foreign objects. Plumbers use drain snakes, hydro-jetting, and chemical treatments to clear blockages. Preventive measures include installing drain strainers and avoiding pouring grease or food waste down the sink.
+
+---
+
+Low water pressure in a home can result from mineral deposits in pipes, a failing pressure regulator, or leaks in the supply line. A licensed plumber will diagnose the root cause using pressure gauges and pipe inspection tools. Replacing aging galvanized pipes with copper or PEX tubing can significantly improve water flow.
+
+---
+
+Water heater issues are common plumbing service requests and include insufficient hot water, strange noises, or complete heater failure. Sediment buildup inside the tank reduces heating efficiency and may cause rumbling sounds during operation. Flushing the water heater tank annually and checking the anode rod extends the unit's lifespan considerably.
+
+---
+
+Septic tanks in homes not connected to municipal sewage systems need to be pumped every three to five years depending on household size and usage. Flushing non-biodegradable items like wipes, cotton swabs, or sanitary products can clog and damage the septic system. Avoid using harsh chemical drain cleaners that kill beneficial bacteria necessary for septic system function.
+
+---
+
+Plumbing pipes in older homes should be inspected for corrosion, mineral buildup, and joint integrity every few years. Galvanized steel pipes are particularly prone to rust and should be replaced with copper or PEX alternatives. Early detection of pipe degradation prevents expensive water damage and mold growth inside walls.
+
+---
+
+Plumbing costs vary based on the complexity of the issue, the type of pipes or fixtures involved, and whether excavation or wall cutting is required. Emergency or after-hours plumbing services usually carry a higher call-out charge. Getting at least two quotes for major plumbing repairs helps ensure fair pricing.
+
+---
+
+================================================================
+SECTION 7 — ELECTRICAL SERVICES (General Knowledge)
+================================================================
+
+Electrical services involve the installation, inspection, and repair of wiring systems, circuit breakers, outlets, switches, and lighting. Licensed electricians ensure that all work complies with local safety codes and national electrical standards. Faulty electrical systems are a leading cause of house fires, making professional intervention critical.
+
+---
+
+Common electrical problems in homes include tripping circuit breakers, flickering lights, non-functional outlets, and overloaded circuits. A circuit breaker trips as a safety mechanism when a circuit draws more current than it is rated for. Persistent tripping often indicates wiring issues, faulty appliances, or the need for a panel upgrade.
+
+---
+
+Flickering lights can be caused by loose wiring connections, voltage fluctuations, or incompatible dimmer switches. If flickering is isolated to one fixture, the issue is likely a loose bulb or faulty switch. Widespread flickering across multiple rooms may indicate a problem with the main electrical panel or the utility connection.
+
+---
+
+Electrical short circuits occur when a live wire touches a neutral wire, causing a sudden surge of current. Signs of short circuits include burnt smells, scorch marks on outlets, or fuses that blow repeatedly. Electricians resolve short circuits by identifying the fault location, repairing or replacing damaged wiring, and testing all affected circuits.
+
+---
+
+Outdoor and garden electrical work includes the installation of security lighting, power outlets, and wiring for garden equipment. All outdoor electrical components must be rated for exterior use and protected by ground fault circuit interrupters (GFCIs). Proper waterproofing and conduit installation prevent moisture damage and electric shock hazards.
+
+---
+
+Home wiring should be inspected by a licensed electrician every five to ten years, especially in older properties. Signs that an electrical system needs attention include frequently tripping breakers, discolored outlets, a burning smell near sockets, or lights that dim when appliances are turned on. Outdated wiring types like aluminum or knob-and-tube wiring pose fire risks and should be replaced.
+
+---
+
+Surge protectors and voltage stabilizers protect sensitive home electronics from power surges caused by lightning strikes, utility switching, or large appliances cycling on and off. Installing a whole-home surge protector at the main electrical panel provides broader protection than individual outlet-level surge strips. Replacing surge protectors every two to three years ensures continued effectiveness.
+
+---
+
+================================================================
+SECTION 8 — AC REPAIR (General Knowledge)
+================================================================
+
+Air conditioning (AC) repair services address issues with cooling performance, airflow, refrigerant levels, and system noise. Technicians are trained to work with split systems, window units, central air systems, and inverter ACs. Regular AC servicing is essential to maintain energy efficiency and extend the equipment's operational life.
+
+---
+
+One of the most common AC problems is insufficient cooling, which can result from low refrigerant levels, a dirty air filter, or a malfunctioning compressor. Low refrigerant is typically caused by a leak in the system and must be identified and repaired before recharging the coolant. Running an AC with low refrigerant can permanently damage the compressor.
+
+---
+
+AC units that produce unusual noises such as grinding, banging, or squealing often have mechanical issues like a loose fan blade, failing motor bearings, or debris inside the unit. Rattling sounds may indicate loose screws or panels. Technicians inspect internal components to isolate the source of noise and carry out targeted repairs.
+
+---
+
+Water leaking from an indoor AC unit is usually caused by a blocked condensate drain line, a frozen evaporator coil, or a damaged drain pan. Blocked drain lines allow water to overflow into the unit, potentially causing mold growth and water damage. Cleaning the drain line every few months with a diluted bleach solution prevents blockages.
+
+---
+
+AC units that frequently turn on and off in short cycles, a condition known as short cycling, may have an oversized unit relative to the room, a refrigerant issue, or a malfunctioning thermostat. Short cycling increases energy consumption and reduces the lifespan of compressor components. A technician will assess the system sizing and refrigerant charge to resolve the issue.
+
+---
+
+AC units should be serviced at least once a year, ideally before the summer season when usage peaks. Regular servicing includes cleaning the air filters, checking refrigerant levels, inspecting electrical connections, and lubricating moving parts. Neglected AC units consume more electricity and are more prone to sudden breakdowns.
+
+---
+
+Air filters in AC systems should be cleaned or replaced every one to three months depending on usage and the level of dust in the environment. A clogged air filter reduces airflow, causing the system to work harder and leading to higher electricity bills. Most modern AC units have washable filters that can be rinsed with water and allowed to dry before reinsertion.
+
+---
+
+The cost of AC servicing typically depends on the type of unit, the number of indoor units, and whether parts replacement is required. Basic servicing involving cleaning and gas pressure checking is generally less expensive than a full repair involving compressor or PCB replacement. Always request an itemized quote before authorizing any repair work.
+
+---
+
+================================================================
+SECTION 9 — CARPENTRY (General Knowledge)
+================================================================
+
+Carpentry services include the fabrication, installation, and repair of wooden structures such as furniture, cabinets, doors, windows, flooring, and wall paneling. Skilled carpenters work with different types of wood, plywood, MDF, and composite materials to deliver custom or standard solutions. Good carpentry enhances both the functionality and aesthetics of a living space.
+
+---
+
+Common carpentry requests include fixing squeaky floors, repairing broken furniture joints, installing shelving units, and fitting custom wardrobes. Squeaky floors are often caused by wood rubbing against nails or subflooring gaps due to changes in humidity. Carpenters address this by securing the floorboards with screws or adding lubrication between boards.
+
+---
+
+Door and window frame repairs are frequent carpentry jobs, especially in older homes where wood warps or swells with moisture. A misaligned door can be caused by settling of the house foundation or frame distortion. Carpenters shave, refit, or replace frames and hinges to restore smooth operation.
+
+---
+
+Custom furniture and cabinetry services allow homeowners to maximize space with built-in solutions like kitchen cabinets, bathroom vanities, and bedroom wardrobes. Carpenters take measurements, recommend materials, and fabricate pieces that match existing decor. Built-in furniture is often more space-efficient than freestanding options.
+
+---
+
+Wooden furniture and fixtures in humid environments are prone to warping, swelling, and mold growth. Applying wood sealant or varnish periodically and keeping indoor humidity levels between 40 and 60 percent helps preserve wooden elements. Carpenters recommend inspecting wooden doors, windows, and floor joints annually for signs of moisture damage.
+
+---
+
+Pest infestations can damage wooden structures through termite activity. It is important to inspect wooden beams, floors, and furniture for hollow sounds or fine sawdust-like droppings. Termite treatment and preventive wood treatments should be coordinated with pest control professionals, and using termite-resistant lumber during construction reduces long-term risk.
+
+---
+
+================================================================
+SECTION 10 — CLEANING SERVICES (General Knowledge)
+================================================================
+
+Home cleaning services include standard cleaning, deep cleaning, move-in or move-out cleaning, and post-construction cleanup. Professional cleaners use industry-grade equipment and eco-friendly or chemical-based products depending on the customer's preference. Regular professional cleaning maintains hygiene and reduces allergen buildup in living spaces.
+
+---
+
+Deep cleaning services go beyond regular surface cleaning to address areas like behind appliances, inside kitchen cabinets, bathroom grout, and ceiling fans. This type of cleaning is recommended at least twice a year and is especially valuable after renovation or long periods without professional cleaning. It helps eliminate bacteria, mold spores, and accumulated grime.
+
+---
+
+Sofa and upholstery cleaning is a specialized cleaning service that removes dust, stains, and allergens from fabric sofas, chairs, mattresses, and curtains. Technicians use steam cleaning, dry foam, or wet extraction methods depending on the fabric type. Clean upholstery reduces asthma triggers and extends the life of furniture.
+
+---
+
+Kitchen cleaning services target greasy range hoods, ovens, stovetops, exhaust fans, and tile backsplashes. Grease accumulation in kitchen exhaust systems is a significant fire hazard and must be cleaned periodically. Professional degreasers and steam tools are used to break down hardened grease without damaging surfaces.
+
+---
+
+Bathroom cleaning services include scrubbing and disinfecting tiles, toilets, sinks, showers, and bathtubs. Hard water stains and soap scum are common bathroom issues that require acid-based cleaners for effective removal. Regular professional bathroom cleaning prevents mold growth, particularly in grout lines and caulked areas.
+
+---
+
+================================================================
+SECTION 11 — OUTDOOR SERVICES (General Knowledge)
+================================================================
+
+Lawn care services include mowing, edging, fertilization, aeration, and weed control. Regular lawn maintenance keeps grass healthy, prevents weed overgrowth, and improves curb appeal. Most residential lawns benefit from professional servicing every two to four weeks during the growing season.
+
+---
+
+Gardening services go beyond lawn care to include planting, pruning, mulching, irrigation setup, and landscape design. A well-maintained garden can significantly improve the aesthetic and market value of a property. Professional gardeners assess soil conditions and recommend plants suited to the local climate and available sunlight.
+
+---
+
+Pressure washing is an effective method for cleaning driveways, sidewalks, patios, exterior walls, fencing, and decks. High-pressure water removes accumulated dirt, mold, algae, and stains that regular cleaning cannot address. Pressure washing is typically recommended once or twice a year and should be done by a professional to avoid surface damage.
+
+---
+
+Deck staining and sealing protects wooden decks from UV damage, moisture, and foot traffic wear. Untreated wood decks can crack, splinter, and rot within a few years of installation. Applying a quality stain and sealant every two to three years significantly extends the life of the deck.
+
+---
+
+Fence repair and maintenance involves fixing broken panels, replacing rotted posts, re-securing leaning sections, and repainting or staining wood or metal fencing. A well-maintained fence improves privacy, security, and property aesthetics. Inspecting fences for damage after storms or heavy winds is a recommended seasonal practice.
+
+---
+
+================================================================
+SECTION 12 — APPLIANCE REPAIR (General Knowledge)
+================================================================
+
+Appliance repair services cover diagnosis and repair of major home appliances including washing machines, refrigerators, dishwashers, microwaves, ovens, and dryers. Professional technicians use diagnostic tools to identify faults in motors, compressors, heating elements, and control boards. Repairing an appliance is often more economical than replacing it, especially for high-end models.
+
+---
+
+Washing machine problems commonly include failure to spin, water not draining, excessive vibration, and error codes on digital displays. Many of these issues are caused by unbalanced loads, blocked filters, or a failing pump or motor. A technician will check all mechanical and electrical components before recommending a repair or replacement.
+
+---
+
+Refrigerator repair covers issues such as the unit not cooling, compressor overheating, ice maker failure, and water dispensing problems. A refrigerator that runs continuously but fails to maintain temperature often has a dirty condenser coil or a failing thermostat. Cleaning the condenser coils every six months and checking door seals prevents many common refrigerator problems.
+
+---
+
+================================================================
+SECTION 13 — FURNITURE ASSEMBLY (General Knowledge)
+================================================================
+
+Furniture assembly services involve the professional setup of flat-pack or modular furniture from brands such as IKEA, Pepperfry, and others. Assembly professionals follow manufacturer instructions precisely and ensure all fittings, screws, and joints are correctly tightened. Professional assembly reduces the risk of structural instability caused by incorrect DIY setup.
+
+---
+
+Door and lock repair services handle misaligned doors, broken hinges, malfunctioning locks, and damaged door frames. A door that does not close properly is a security risk and may also affect energy efficiency in climate-controlled spaces. Locksmiths and carpenters work together on door and lock issues depending on whether the problem is mechanical or structural.
+
+---
+
+================================================================
+SECTION 14 — HOME MAINTENANCE TIPS
+================================================================
+
+Good home maintenance prevents small issues from becoming expensive repairs. Keeping a maintenance calendar that tracks service dates for AC, geysers, electrical inspections, and plumbing checks ensures timely attention. Many home services platforms offer annual maintenance contracts that bundle multiple services at a discounted rate.
+
+---
+
+Roof and wall waterproofing is an essential maintenance task that prevents seepage, dampness, and structural damage during the monsoon or rainy season. Waterproof coatings, sealants, and drainage systems must be checked and maintained annually. Signs of water seepage include peeling paint, damp patches on walls, and musty odors indoors.
+
+---
+
+Geysers and water heaters should be serviced annually to check the heating element, thermostat, pressure relief valve, and internal corrosion. Descaling the heating element removes mineral deposits that reduce heating efficiency. The pressure relief valve should be tested regularly to ensure it releases safely when pressure exceeds safe limits.
+
+---
+
+Kitchen chimneys and range hoods accumulate grease in their filters and should be cleaned every one to three months depending on cooking frequency. Mesh filters can be soaked in hot water with a degreasing solution, while baffle filters can often be cleaned in a dishwasher. A poorly maintained chimney filter reduces suction power and poses a fire risk from grease ignition.
+
+---
+
+Smart home devices such as water leak sensors, electrical load monitors, and thermostat controllers can alert homeowners to problems early. Leak sensors placed near water heaters, washing machines, and under sinks detect moisture and send alerts before damage occurs. Integrating these devices with a home services platform allows for faster professional response when issues are detected.
+
+---
+
+================================================================
+SECTION 15 — SAFETY AND PROVIDER SELECTION TIPS
+================================================================
+
+Safety verification of service providers on reputable platforms includes government-issued ID checks, police background verification, and professional certification validation. Service providers are trained on safety protocols and are required to wear uniforms and carry their platform ID during visits. Customers should always verify credentials before allowing a professional into their home.
+
+---
+
+Before a service appointment, customers should ensure that the work area is accessible and that pets or young children are kept away for safety. Customers should not leave a service professional unsupervised in sensitive areas of the home if they are not comfortable doing so. It is advisable to note the professional's ID and platform registration number at the start of each visit.
+
+---
+
+When choosing a service provider, look for professionals with a high number of reviews, a strong rating, and demonstrated experience in the specific service required. Providers who specialize in one area often deliver better results than generalists for complex tasks. Profiles that include photos of past work provide additional confidence in their capabilities.
+
+---
+
+Customers should ask for a cost estimate before work begins and clarify whether the quoted price includes materials. For larger jobs, a written service order detailing the scope, timeline, and cost protects both parties. Avoid making full payment in advance for expensive or multi-day jobs.
+
+---
+
+After the service is completed, inspect the work carefully before marking the job as done on the platform. Test repaired appliances, check for leaks after plumbing work, or verify electrical outlets before the professional leaves. If any issues are noticed, raise them immediately while the professional is still on-site.
+
+---
+
+It is advisable to communicate exact requirements clearly before the appointment to avoid misunderstandings about scope of work. Providing photos of the problem area through the platform's messaging system can help the professional come prepared with the right tools and materials. Clear communication reduces the chances of delays or repeat visits.
+
+---
+
+================================================================
+END OF KNOWLEDGE BASE
+Total Chunks: 72
+Sources: General Home Services Domain Knowledge + LocalFix Website (localfix-self.vercel.app)
+Generated for: RAG Vector Database Embedding
+================================================================

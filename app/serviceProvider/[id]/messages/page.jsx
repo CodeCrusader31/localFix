@@ -184,20 +184,23 @@
 "use client";
 import { useAppContext } from "@/context/AppContext";
 import { useState, useEffect } from "react";
-import { Search, Send, MoreVertical } from "lucide-react";
+import { useParams } from "next/navigation";
+import { Search } from "lucide-react";
 import ServiceProviderChat from "@/components/ServiceProviderChat";
 
 export default function ServiceProviderMessagesPage() {
-  const { user, joinRoom } = useAppContext();
+  const { id } = useParams();
+  const { user, joinRoom, loading } = useAppContext();
   const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedConversation, setSelectedConversation] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const isOwner = !!user && user.role === "serviceProvider" && String(user.id) === String(id);
 
   // Fetch provider's conversations
   useEffect(() => {
-    if (user?.role === "serviceProvider") {
-      // You'll need to implement this API endpoint
-      fetch(`/api/conversations/provider/${user.id}`)
+    if (isOwner) {
+      fetch(`/api/conversations/provider/${id}`)
         .then(res => res.json())
         .then(data => {
           if (data.success) {
@@ -206,11 +209,12 @@ export default function ServiceProviderMessagesPage() {
         })
         .catch(err => console.error("Error fetching conversations:", err));
     }
-  }, [user]);
+  }, [id, isOwner]);
 
-  const handleSelectConversation = (roomId) => {
-    setSelectedRoom(roomId);
-    joinRoom(roomId);
+  const handleSelectConversation = (conversation) => {
+    setSelectedRoom(conversation.roomId);
+    setSelectedConversation(conversation);
+    joinRoom(conversation.roomId);
   };
 
   const filteredConversations = conversations.filter(conv =>
@@ -220,6 +224,14 @@ export default function ServiceProviderMessagesPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 h-[calc(100vh-4rem)]">
+      {loading ? (
+        <div className="bg-white rounded-lg shadow-sm p-6">Loading messages...</div>
+      ) : !isOwner ? (
+        <div className="bg-white border border-red-100 rounded-lg p-6 text-center">
+          <h1 className="text-xl font-semibold text-gray-900">Authentication required</h1>
+          <p className="mt-2 text-gray-600">Log in as this service provider to view messages.</p>
+        </div>
+      ) : (
       <div className="bg-white rounded-lg shadow-md h-full flex">
         {/* Conversations List */}
         <div className="w-1/3 border-r border-gray-200 flex flex-col">
@@ -241,7 +253,7 @@ export default function ServiceProviderMessagesPage() {
             {filteredConversations.map((conversation) => (
               <div
                 key={conversation.roomId}
-                onClick={() => handleSelectConversation(conversation.roomId)}
+                onClick={() => handleSelectConversation(conversation)}
                 className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 ${
                   selectedRoom === conversation.roomId ? "bg-blue-50 border-blue-200" : ""
                 }`}
@@ -284,7 +296,10 @@ export default function ServiceProviderMessagesPage() {
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
           {selectedRoom ? (
-            <ServiceProviderChat roomId={selectedRoom} />
+            <ServiceProviderChat
+              roomId={selectedRoom}
+              roomName={selectedConversation?.roomName || selectedConversation?.customerName}
+            />
           ) : (
             <div className="flex-1 flex items-center justify-center text-gray-500">
               <div className="text-center">
@@ -295,6 +310,7 @@ export default function ServiceProviderMessagesPage() {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }

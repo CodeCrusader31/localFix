@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/config/db";
 import User from "@/lib/models/User";
 
-export async function GET(request, { params }) {
+export async function GET(request, context) {
   try {
     await connectDB();
     
-    const { id } = params;
+    const { id } = await context.params;
     console.log("🟢 Public profile API called for ID:", id);
     
     // Find user by ID (public information only)

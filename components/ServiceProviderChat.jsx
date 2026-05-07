@@ -1,12 +1,23 @@
 
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 
-export default function ServiceProviderChat({ roomId }) {
+function normalizeMessage(msg) {
+  return {
+    ...msg,
+    message:
+      typeof msg.message === "string"
+        ? msg.message
+        : msg.message?.text || "",
+  };
+}
+
+export default function ServiceProviderChat({ roomId, roomName }) {
   const { messages, sendMessage, joinRoom, user, socket } = useAppContext();
   const [newMessage, setNewMessage] = useState("");
   const [roomMessages, setRoomMessages] = useState([]);
+  const title = useMemo(() => roomName || "Conversation", [roomName]);
 
   // Filter messages for current room
   useEffect(() => {
@@ -28,7 +39,7 @@ export default function ServiceProviderChat({ roomId }) {
         .then((data) => {
           if (data.success) {
             console.log("Loaded room messages:", data.messages);
-            // Note: These will be added to the global messages state via context
+            setRoomMessages((data.messages || []).map(normalizeMessage));
           }
         })
         .catch((err) => {
@@ -56,13 +67,6 @@ export default function ServiceProviderChat({ roomId }) {
     e.preventDefault();
     if (newMessage.trim() && roomId && user) {
       console.log("Sending message:", newMessage, "to room:", roomId);
-      
-      const messageData = {
-        roomId,
-        senderId: user.id,
-        receiverId: "", // You need to determine who the receiver is
-        message: newMessage.trim(),
-      };
 
       try {
         await sendMessage(roomId, newMessage.trim());
@@ -76,7 +80,7 @@ export default function ServiceProviderChat({ roomId }) {
   return (
     <div className="border rounded-lg p-4 bg-gray-50 h-full flex flex-col">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold">Chat Room: {roomId}</h3>
+        <h3 className="text-lg font-semibold">{title}</h3>
         <p className="text-sm text-gray-600">
           Socket: {socket?.connected ? "Connected" : "Disconnected"}
         </p>

@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -11,58 +9,62 @@ const io = new Server(server, {
   cors: { origin: "*" },
 });
 
-io.on("connection", (socket) => {
-  console.log("✅ User Connected:", socket.id);
+function normalizeMessagePayload(payload = {}) {
+  const savedMessage = payload.message;
 
-  // Join Room
+  if (savedMessage && typeof savedMessage === "object") {
+    return {
+      ...savedMessage,
+      roomId: savedMessage.roomId || payload.roomId,
+      senderId: savedMessage.senderId || payload.senderId,
+      receiverId: savedMessage.receiverId || payload.receiverId,
+      message:
+        typeof savedMessage.message === "string"
+          ? savedMessage.message
+          : savedMessage.message?.text || "",
+      createdAt: savedMessage.createdAt || new Date(),
+    };
+  }
+
+  return {
+    roomId: payload.roomId,
+    senderId: payload.senderId,
+    receiverId: payload.receiverId,
+    message: typeof savedMessage === "string" ? savedMessage : savedMessage?.text || "",
+    createdAt: new Date(),
+  };
+}
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
   socket.on("joinRoom", (roomId) => {
     socket.join(roomId);
-    console.log(`👤 ${socket.id} joined room: ${roomId}`);
+    console.log(`${socket.id} joined room: ${roomId}`);
   });
 
-  // Handle new booking notifications
   socket.on("sendBookingNotification", ({ receiverId, booking }) => {
-    console.log("📅 New Booking Notification to:", receiverId, "Booking:", booking);
+    console.log("New booking notification to:", receiverId, "Booking:", booking);
     io.to(receiverId).emit("newBooking", { booking });
   });
 
-  // Handle booking status updates
-  socket.on("bookingStatusUpdate", ({ receiverId, bookingId, status }) => {
-    console.log("🔄 Booking Status Update to:", receiverId, "BookingID:", bookingId, "Status:", status);
-    io.to(receiverId).emit("bookingStatusUpdate", { bookingId, status });
+  socket.on("bookingStatusUpdate", ({ receiverId, bookingId, status, booking }) => {
+    console.log("Booking status update to:", receiverId, "BookingID:", bookingId, "Status:", status);
+    io.to(receiverId).emit("bookingStatusUpdate", { bookingId, status, booking });
   });
 
-  // Receive message from client and broadcast to room
-  // socket.on("sendMessage", ({ roomId, senderId, receiverId, message }) => {
-  //   console.log("📩 Message:", { roomId, senderId, receiverId, message });
-
-  //   // Broadcast full message object to room
-  //   io.to(roomId).emit("receiveMessage", {
-  //     roomId,
-  //     senderId,
-  //     receiverId,
-  //     message,
-  //     createdAt: new Date(), // optional timestamp
-  //   });
-  // });
-
-  socket.on("sendMessage", ({ roomId, senderId, receiverId, message }) => {
-  io.to(roomId).emit("receiveMessage", {
-    roomId,
-    senderId,
-    receiverId,
-    message: String(message), // ✅ FORCE STRING
-    createdAt: new Date(),
+  socket.on("sendMessage", (payload) => {
+    const message = normalizeMessagePayload(payload);
+    io.to(message.roomId).emit("receiveMessage", message);
   });
-});
 
   socket.on("disconnect", () => {
-    console.log("❌ User disconnected:", socket.id);
+    console.log("User disconnected:", socket.id);
   });
 });
 
 const PORT = process.env.PORT || 4000;
 
 server.listen(PORT, () => {
-  console.log(`🚀 Socket server running on port ${PORT}`);
+  console.log(`Socket server running on port ${PORT}`);
 });

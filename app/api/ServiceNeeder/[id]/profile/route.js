@@ -4,11 +4,11 @@ import { jwtVerify } from "jose";
 import connectDB from "@/lib/config/db";
 import User from "@/lib/models/User";
 
-export async function GET(request, { params }) {
+export async function GET(request, context) {
   try {
     await connectDB();
 
-    const { id } = params;
+    const { id } = await context.params;
     if (!id) {
       return NextResponse.json({ error: "Missing profile id" }, { status: 400 });
     }
@@ -52,11 +52,11 @@ export async function GET(request, { params }) {
   }
 }
 
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   try {
     await connectDB();
 
-    const { id } = params;
+    const { id } = await context.params;
     if (!id) {
       return NextResponse.json({ error: "Missing profile id" }, { status: 400 });
     }

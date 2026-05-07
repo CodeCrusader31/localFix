@@ -182,10 +182,10 @@ export default function BookingPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ProviderId: providerId,
-          ServiceType: formData.serviceType,
+          providerId,
+          serviceType: formData.serviceType,
           description: formData.description,
-          scheduleAt: formData.scheduledAt,
+          scheduledAt: formData.scheduledAt,
         }),
       });
 
@@ -206,8 +206,7 @@ export default function BookingPage() {
         });
       }
 
-      // ✅ success
-      router.push("/serviceNeeder/dashboard");
+      router.push(`/serviceNeeder/${user.id}/bookings`);
     } catch (err) {
       setError("Something went wrong");
       setLoading(false);

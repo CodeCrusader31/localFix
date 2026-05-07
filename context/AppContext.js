@@ -7,6 +7,32 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
 const AppContext = createContext();
+const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:4000";
+
+function normalizeUser(userData) {
+  if (!userData) return null;
+  return {
+    ...userData,
+    id: userData.id || userData._id,
+  };
+}
+
+function normalizeMessage(msg) {
+  if (!msg) return msg;
+  return {
+    ...msg,
+    message:
+      typeof msg.message === "string"
+        ? msg.message
+        : msg.message?.text || "",
+  };
+}
+
+function getReceiverIdFromRoom(roomId, currentUserId) {
+  if (!roomId || !currentUserId) return "";
+  const ids = roomId.includes("_") ? roomId.split("_") : roomId.split("-");
+  return ids.find((id) => id && id !== currentUserId) || "";
+}
 
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -22,7 +48,7 @@ export const AppContextProvider = ({ children }) => {
       const res = await fetch("/api/me", { credentials: "include", cache: "no-store" });
       const data = await res.json();
       if (res.ok && data.user) {
-        setUser(data.user);
+        setUser(normalizeUser(data.user));
         setRole(data.user.role || "guest");
       } else {
         setUser(null);
@@ -39,7 +65,7 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => { fetchMe(); }, []);
 
   const login = (userData, token) => {
-    setUser(userData);
+    setUser(normalizeUser(userData));
     setRole(userData.role || "guest");
     // Session cookie is set by `POST /api/auth/login` (HttpOnly),
     // so we don't need to mirror it here.
@@ -48,7 +74,7 @@ export const AppContextProvider = ({ children }) => {
   // WebSocket
   useEffect(() => {
     if (user) {
-      const socketInstance = io("http://localhost:4000", {
+      const socketInstance = io(SOCKET_URL, {
         query: { userId: user.id, role: user.role },
       });
 
@@ -58,7 +84,7 @@ export const AppContextProvider = ({ children }) => {
       socketInstance.emit("joinRoom", user.id);
 
       socketInstance.on("receiveMessage", (msg) => {
-        setMessages((prev) => [...prev, msg]);
+        setMessages((prev) => [...prev, normalizeMessage(msg)]);
       });
 
       return () => socketInstance.disconnect();
@@ -85,7 +111,7 @@ export const AppContextProvider = ({ children }) => {
     fetch(`/api/messages/${roomId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.success) setMessages(data.messages || []);
+        if (data.success) setMessages((data.messages || []).map(normalizeMessage));
       });
   };
 
@@ -93,9 +119,12 @@ export const AppContextProvider = ({ children }) => {
   const sendMessage = async (roomId, messageContent) => {
     if (!socket || !user || !roomId || !messageContent.trim()) return;
 
-    // extract receiver from roomId
-    const ids = roomId.split("_");
-    const receiverId = ids.find((x) => x !== user.id);
+    const receiverId = getReceiverIdFromRoom(roomId, user.id);
+
+    if (!receiverId) {
+      console.error("Unable to determine message receiver from room:", roomId);
+      return;
+    }
 
     const msgPayload = {
       roomId,
@@ -113,12 +142,8 @@ export const AppContextProvider = ({ children }) => {
       const result = await res.json();
 
       if (result.success) {
-        socket.emit("sendMessage", {
-          roomId,
-          message: result.message,
-        });
-
-        setMessages((prev) => [...prev, result.message]);
+        const savedMessage = normalizeMessage(result.message);
+        socket.emit("sendMessage", savedMessage);
       }
     } catch (err) {
       console.error("Message error", err);
@@ -127,8 +152,19 @@ export const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
-      user, role, loading, socket, messages,
-      joinRoom, sendMessage, login, logout, setMessages, currentRoom
+      user,
+      role,
+      loading,
+      isAuthenticated: !!user,
+      socket,
+      messages,
+      joinRoom,
+      sendMessage,
+      login,
+      logout,
+      setMessages,
+      currentRoom,
+      fetchMe,
     }}>
       {children}
     </AppContext.Provider>

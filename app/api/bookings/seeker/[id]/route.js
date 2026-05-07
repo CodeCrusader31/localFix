@@ -3,7 +3,7 @@ import connectDB from "@/lib/config/db";
 import Booking from "@/lib/models/Booking";
 import { getUserFromCookies } from "@/lib/utils/auth";
 
-export async function GET(req, { params }) {
+export async function GET(req, context) {
   try {
     await connectDB();
 
@@ -15,7 +15,7 @@ export async function GET(req, { params }) {
       );
     }
 
-    const { id } = params; // seekerId
+    const { id } = await context.params; // seekerId
     if (!id) {
       return NextResponse.json({ error: "Missing seeker id" }, { status: 400 });
     }
@@ -26,7 +26,7 @@ export async function GET(req, { params }) {
     }
 
     const bookings = await Booking.find({ seekerId: id })
-      .populate("providerId", "fullName phone profilePic city state")
+      .populate("providerId", "fullName phone profilePic city state serviceCategory")
       .sort({ createdAt: -1 });
 
     return NextResponse.json({ bookings }, { status: 200 });

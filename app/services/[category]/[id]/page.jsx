@@ -12,34 +12,19 @@ export default function ProviderProfilePage() {
   const [activeTab, setActiveTab] = useState("profile");
   const [showChat, setShowChat] = useState(false); // ✅ toggle chat
   const router = useRouter();
+  const [feedbackStats, setFeedbackStats] = useState({
+    averageRating: 0,
+    totalReviews: 0,
+  });
+  const [canReview, setCanReview] = useState(false);
+  const [eligibleBooking, setEligibleBooking] = useState(null);
+  const [userReview, setUserReview] = useState(null);
+  const [feedbackForm, setFeedbackForm] = useState({ rating: 5, comment: "" });
+  const [feedbackError, setFeedbackError] = useState("");
+  const [feedbackSaving, setFeedbackSaving] = useState(false);
 
   // // Mock feedback data - replace with actual API call
-  const [feedbacks, setFeedbacks] = useState([
-    {
-      id: 1,
-      customerName: "Rahul Sharma",
-      rating: 5,
-      comment: "Excellent service! Very professional and punctual.",
-      date: "2024-01-15",
-      service: "Plumbing Repair",
-    },
-    {
-      id: 2,
-      customerName: "Priya Patel",
-      rating: 4,
-      comment: "Good work, but slightly delayed. Would recommend.",
-      date: "2024-01-10",
-      service: "Electrical Work",
-    },
-    {
-      id: 3,
-      customerName: "Amit Kumar",
-      rating: 5,
-      comment: "Outstanding quality and very reasonable pricing.",
-      date: "2024-01-05",
-      service: "Carpentry",
-    },
-  ]);
+  const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
     if (id) {
@@ -58,6 +43,59 @@ export default function ProviderProfilePage() {
         });
     }
   }, [id]);
+
+  const fetchFeedback = async () => {
+    if (!id) return;
+
+    try {
+      const res = await fetch(`/api/ServiceProviders/${id}/feedback`, {
+        credentials: "include",
+        cache: "no-store",
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Failed to load feedback");
+
+      setFeedbacks(data.reviews || []);
+      setFeedbackStats(data.stats || { averageRating: 0, totalReviews: 0 });
+      setCanReview(Boolean(data.canReview));
+      setEligibleBooking(data.eligibleBooking || null);
+      setUserReview(data.userReview || null);
+    } catch (err) {
+      console.error("Fetch feedback error:", err);
+      setFeedbacks([]);
+      setFeedbackStats({ averageRating: 0, totalReviews: 0 });
+      setCanReview(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFeedback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, user?.id]);
+
+  const submitFeedback = async (event) => {
+    event.preventDefault();
+    setFeedbackSaving(true);
+    setFeedbackError("");
+
+    try {
+      const res = await fetch(`/api/ServiceProviders/${id}/feedback`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(feedbackForm),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Failed to submit feedback");
+
+      setFeedbackForm({ rating: 5, comment: "" });
+      await fetchFeedback();
+    } catch (err) {
+      setFeedbackError(err.message || "Failed to submit feedback");
+    } finally {
+      setFeedbackSaving(false);
+    }
+  };
 
   const roomId =
     user?.id && provider?._id ? `${user.id}-${provider._id}` : null;
@@ -90,7 +128,7 @@ export default function ProviderProfilePage() {
   };
 
   // Star rating component
-  const StarRating = ({ rating }) => {
+  const StarRating = ({ rating, showValue = true }) => {
     return (
       <div className="flex items-center gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -103,7 +141,9 @@ export default function ProviderProfilePage() {
             ★
           </span>
         ))}
-        <span className="ml-2 text-gray-600">({rating}.0)</span>
+        {showValue ? (
+          <span className="ml-2 text-gray-600">({Number(rating || 0).toFixed(1)})</span>
+        ) : null}
       </div>
     );
   };
@@ -173,7 +213,7 @@ export default function ProviderProfilePage() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-blue-600">
-                    {feedbacks.length}
+                    {feedbackStats.totalReviews || 0}
                   </div>
                   <div className="text-sm text-gray-600">Reviews</div>
                 </div>
@@ -203,7 +243,7 @@ export default function ProviderProfilePage() {
                   {provider.serviceCategory}
                 </span>
                 <div className="flex items-center gap-2">
-                  <StarRating rating={provider.rating || 0} />
+                  <StarRating rating={feedbackStats.averageRating || 0} />
                 </div>
               </div>
             </div>
@@ -339,7 +379,13 @@ export default function ProviderProfilePage() {
                 Book Service
               </button>
 
-              <button className="border border-green-500 text-green-500 hover:bg-green-50 px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() =>
+                  document.getElementById("provider-feedback")?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="border border-green-500 text-green-500 hover:bg-green-50 px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-3"
+              >
                 <span className="text-lg">⭐</span>
                 Leave Feedback
               </button>
@@ -358,7 +404,7 @@ export default function ProviderProfilePage() {
         </div>
 
         {/* Feedback Section */}
-        <div className="mt-12 bg-white rounded-2xl p-8 shadow-sm border border-blue-100">
+        <div id="provider-feedback" className="mt-12 bg-white rounded-2xl p-8 shadow-sm border border-blue-100">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold text-gray-800">
               Customer Feedback
@@ -367,41 +413,116 @@ export default function ProviderProfilePage() {
               <span className="text-lg font-semibold text-gray-700">
                 Overall Rating:{" "}
                 <span className="text-blue-600">
-                  {provider.rating || "N/A"}
+                  {feedbackStats.totalReviews ? feedbackStats.averageRating : "N/A"}
                 </span>
               </span>
             </div>
+          </div>
+
+          <div className="mb-8 border border-blue-100 rounded-2xl p-6 bg-blue-50/50">
+            {user?.role === "serviceNeeder" && canReview ? (
+              <form onSubmit={submitFeedback} className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">Leave Feedback</h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Based on your completed booking: {eligibleBooking?.serviceType || "Service booking"}.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                  <select
+                    value={feedbackForm.rating}
+                    onChange={(e) =>
+                      setFeedbackForm((current) => ({ ...current, rating: Number(e.target.value) }))
+                    }
+                    className="w-full md:w-48 border border-blue-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                  >
+                    {[5, 4, 3, 2, 1].map((rating) => (
+                      <option key={rating} value={rating}>
+                        {rating} Star{rating > 1 ? "s" : ""}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Comment</label>
+                  <textarea
+                    value={feedbackForm.comment}
+                    onChange={(e) =>
+                      setFeedbackForm((current) => ({ ...current, comment: e.target.value }))
+                    }
+                    className="w-full border border-blue-200 rounded-xl px-3 py-2 min-h-[110px] focus:ring-2 focus:ring-blue-400"
+                    placeholder="Share your experience with this provider"
+                  />
+                </div>
+
+                {feedbackError ? (
+                  <p className="text-sm text-red-700 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                    {feedbackError}
+                  </p>
+                ) : null}
+
+                <button
+                  type="submit"
+                  disabled={feedbackSaving}
+                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold disabled:opacity-60"
+                >
+                  {feedbackSaving ? "Submitting..." : "Submit Feedback"}
+                </button>
+              </form>
+            ) : user?.role === "serviceNeeder" && userReview ? (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">Feedback already submitted</h3>
+                <p className="text-sm text-gray-600 mt-1">You have already reviewed this provider.</p>
+              </div>
+            ) : user?.role === "serviceNeeder" ? (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">Feedback unavailable</h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  You can leave feedback only after completing a booking with this provider.
+                </p>
+              </div>
+            ) : (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">Want to leave feedback?</h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  Log in as a service needer and complete a booking with this provider first.
+                </p>
+              </div>
+            )}
           </div>
 
           {feedbacks.length > 0 ? (
             <div className="space-y-6">
               {feedbacks.map((feedback) => (
                 <div
-                  key={feedback.id}
+                  key={feedback._id}
                   className="border border-blue-100 rounded-2xl p-6 hover:shadow-md transition-shadow duration-200"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
                     <div className="flex items-center gap-4 mb-3 sm:mb-0">
                       <div className="w-12 h-12 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full flex items-center justify-center">
                         <span className="text-white font-semibold text-lg">
-                          {feedback.customerName.charAt(0)}
+                          {(feedback.customerId?.fullName || "C").charAt(0)}
                         </span>
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-800">
-                          {feedback.customerName}
+                          {feedback.customerId?.fullName || "Customer"}
                         </h4>
                         <p className="text-sm text-gray-600">
-                          {feedback.service}
+                          {feedback.bookingId?.serviceType || "Service booking"}
                         </p>
                       </div>
                     </div>
                     <div className="text-sm text-gray-500">
-                      {new Date(feedback.date).toLocaleDateString()}
+                      {new Date(feedback.createdAt).toLocaleDateString()}
                     </div>
                   </div>
 
-                  <StarRating rating={feedback.rating} />
+                  <StarRating rating={feedback.rating} showValue={false} />
 
                   <p className="text-gray-700 mt-3 leading-relaxed">
                     {feedback.comment}

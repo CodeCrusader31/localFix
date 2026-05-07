@@ -39,3 +39,45 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Next.js error logs
+next-dev.err.log
+next-dev.log
+
+# Socket server logs
+socket-server.err.log
+socket-server.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# # Environment variables
+# .env
+
+# # VS Code
+# .vscode/
+
+# # Logs
+# *.log
+
+# # OS files
+# .DS_Store
+# Thumbs.db
+
+# # Build files
+# dist/
+# build/
+# *.egg-info/
+
+# # Jupyter Notebook
+# .ipynb_checkpoints/
