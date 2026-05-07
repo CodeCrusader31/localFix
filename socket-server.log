@@ -7639,3 +7639,52 @@
 🔄 Booking Status Update to: undefined BookingID: 696a1f3c502e60d6ee683b44 Status: CANCELLED
 ❌ User disconnected: EieAad9ltW1lGJOhAAA1
 ❌ User disconnected: oFsBk_OPvKcXr4S8AAA3
+✅ User Connected: BISm7Z6dOZINsnbTAAA5
+👤 BISm7Z6dOZINsnbTAAA5 joined room: 68d923b8e3210ec05b7ad91a
+📅 New Booking Notification to: 68d912ade3210ec05b7ad912 Booking: {
+  seekerId: {
+    _id: '68d923b8e3210ec05b7ad91a',
+    fullName: 'Priya Sharma',
+    email: 'priya@example.com',
+    phone: '9876543210',
+    address: 'Brigade Road',
+    city: 'Bangalore',
+    state: 'Karnataka'
+  },
+  providerId: {
+    _id: '68d912ade3210ec05b7ad912',
+    fullName: 'Ramesh Kumar',
+    email: 'ramesh@example.com',
+    phone: '9876512345',
+    city: 'Bangalore',
+    state: 'Karnataka',
+    serviceCategory: 'plumber'
+  },
+  serviceType: 'plumbing',
+  description: 'pipe leakage at bathroom',
+  scheduledAt: '2026-05-07T12:09:00.000Z',
+  status: 'PENDING',
+  paymentStatus: 'PENDING',
+  _id: '69fc6454164a027dbd6cdcb9',
+  createdAt: '2026-05-07T10:07:16.463Z',
+  updatedAt: '2026-05-07T10:07:16.463Z',
+  __v: 0
+}
+✅ User Connected: 0hB6P841zgQow_LIAAA7
+👤 0hB6P841zgQow_LIAAA7 joined room: 68cb18bfdd44133db331155f
+❌ User disconnected: 0hB6P841zgQow_LIAAA7
+✅ User Connected: Pj3bwcRcUtF5HII6AAA9
+👤 Pj3bwcRcUtF5HII6AAA9 joined room: 68d912ade3210ec05b7ad912
+🔄 Booking Status Update to: 68d923b8e3210ec05b7ad91a BookingID: 69fc6454164a027dbd6cdcb9 Status: ACCEPTED
+🔄 Booking Status Update to: 68d923b8e3210ec05b7ad91a BookingID: 69fc6454164a027dbd6cdcb9 Status: IN_PROGRESS
+🔄 Booking Status Update to: 68d923b8e3210ec05b7ad91a BookingID: 69fc6454164a027dbd6cdcb9 Status: COMPLETED
+✅ User Connected: K_Ji0sZmPJkVWTsgAAA_
+👤 K_Ji0sZmPJkVWTsgAAA_ joined room: 68d923b8e3210ec05b7ad91a-68d912ade3210ec05b7ad912
+👤 K_Ji0sZmPJkVWTsgAAA_ joined room: 68d923b8e3210ec05b7ad91a-68d912ade3210ec05b7ad912
+❌ User disconnected: BISm7Z6dOZINsnbTAAA5
+❌ User disconnected: K_Ji0sZmPJkVWTsgAAA_
+✅ User Connected: cDHpWVC9fng2jaMqAABB
+👤 cDHpWVC9fng2jaMqAABB joined room: 68d923b8e3210ec05b7ad91a
+✅ User Connected: fy9VYfeclzwVVzR-AABD
+👤 fy9VYfeclzwVVzR-AABD joined room: 68d923b8e3210ec05b7ad91a-68d912ade3210ec05b7ad912
+👤 fy9VYfeclzwVVzR-AABD joined room: 68d923b8e3210ec05b7ad91a-68d912ade3210ec05b7ad912
