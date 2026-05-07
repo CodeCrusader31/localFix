@@ -20,7 +20,8 @@ export default function ChatBox({ roomId, receiverId, senderId }) {
   // ✅ Initialize socket safely
   useEffect(() => {
     if (!socket) {
-      socket = io("http://localhost:4000", {
+      const socketUrl = process.env.NEXT_PUBLIC_WS_URL || "http://localhost:4000";
+      socket = io(socketUrl, {
         transports: ["websocket"],
       });
     }

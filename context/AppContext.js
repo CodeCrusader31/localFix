@@ -7,7 +7,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
 const AppContext = createContext();
-const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:4000";
+const SOCKET_URL = process.env.NEXT_PUBLIC_WS_URL || "http://localhost:4000";
 
 function normalizeUser(userData) {
   if (!userData) return null;
