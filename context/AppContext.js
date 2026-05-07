@@ -5,6 +5,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { io } from "socket.io-client";
+import { useCallback } from "react";
 
 const AppContext = createContext();
 const SOCKET_URL = process.env.NEXT_PUBLIC_WS_URL || "http://localhost:4000";
@@ -102,7 +103,7 @@ export const AppContextProvider = ({ children }) => {
   };
 
   // ✅ Join room
-  const joinRoom = (roomId) => {
+  const joinRoom = useCallback((roomId) => {
     if (!socket || !roomId) return;
 
     setCurrentRoom(roomId);
@@ -113,10 +114,10 @@ export const AppContextProvider = ({ children }) => {
       .then((data) => {
         if (data.success) setMessages((data.messages || []).map(normalizeMessage));
       });
-  };
+  }, [socket]);
 
   // ✅ Send Message
-  const sendMessage = async (roomId, messageContent) => {
+  const sendMessage = useCallback(async (roomId, messageContent) => {
     if (!socket || !user || !roomId || !messageContent.trim()) return;
 
     const receiverId = getReceiverIdFromRoom(roomId, user.id);
@@ -148,7 +149,7 @@ export const AppContextProvider = ({ children }) => {
     } catch (err) {
       console.error("Message error", err);
     }
-  };
+  }, [socket, user]);
 
   return (
     <AppContext.Provider value={{
